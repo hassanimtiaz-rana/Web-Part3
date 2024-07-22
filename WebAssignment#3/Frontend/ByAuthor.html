@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="./ByAuthor.css">
+    <link rel="stylesheet" href="./style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>My Online Book Store</title>
+</head>
+<body>
+    <header>
+        <nav class="HeaderClass">
+            <div class="logo-header">
+                <i class="fas fa-book"></i>
+                <h1>Welcome To My Online Book Store</h1>
+            </div>
+            <ul>
+                <li><a href="./index.html" id="home-button">Home</a></li>
+                <li><a href="./books.html" id="book-button">View Books</a></li>
+                <li><a href="./AddBook.html" id="add-book-button">Add Books</a></li>
+                <li><a href="./EditBook.html">Edit Book</a></li>
+                <li><a href="./ByAuthor.html">By Author</a></li>
+
+
+                <!-- <ul class="dropdown">
+                    <li><a href="./books.html" id="add-book"></a>View Book</li>
+                    <li><a href="./AddBook.html" id="add-book"></a>Add Book</li>
+                    <li><a href="./EditBook.html" id="add-book"></a>Edit Book</li>
+                    <li><a href="./ByAuthor.html" id="add-book"></a>By Author</li>
+
+                </ul> -->
+            
+                
+            </ul>
+        </nav>
+    </header>
+    <div class="search-bar">
+        <form id="searchForm">
+            <input type="text" placeholder="Search By Author Name..." id="search" name="search">
+            <button type="submit"><i class="fas fa-search"></i></button>
+        </form>
+    </div>
+    <section class="featured-books">
+        <div class="card-container">
+            <!-- Cards will be appended here -->
+        </div>
+    </section>
+
+    <script>
+        $(document).ready(function() {
+            $('#searchForm').on('submit', function(event) {
+                event.preventDefault(); //we dont want to refresh page
+
+                // Get the author name from the search input
+                const authorName = $('#search').val();
+
+                if (authorName) {
+                    // Make the AJAX request to get books by author
+                    $.ajax({
+                        url: `https://localhost:7046/api/Books/ByAuthor/${authorName}`,
+                        method: 'GET',
+                        dataType: 'json',
+                        success: function(data) {
+                            $('.card-container').empty(); // Clear 
+
+                            if (data.length > 0) {
+                                // Append the results to the card container
+                                //book=> means that i am taking one object at a time of the data i got from .net web api
+                                data.forEach(book => {
+                                    const bookCard = `
+                                    <div class="single-card">
+                                        <div class="card-img">
+                                            <img src="${book.imageUrl}" alt="Book Image">
+                                        </div>
+                                        <div class="card-text">
+                                            <p>Book Title: ${book.title}</p>
+                                            <p>Author: ${book.author}</p>
+                                            <p>Description: ${book.description}</p>
+                                        </div>
+                                    </div>
+                                    `;
+                                    $('.card-container').append(bookCard);
+                                });
+                            } else {
+                                $('.card-container').html('<p>No books found for this author.</p>');
+                            }
+                        },
+                        error: function(error) {
+                            console.error('Error fetching books by author:', error);
+                            $('.card-container').html('<p>Failed to fetch books. Please try again.</p>');
+                        }
+                    });
+                } else {
+                    $('.card-container').html('<p>Please enter an author name.</p>');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

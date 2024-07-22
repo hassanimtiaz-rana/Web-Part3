@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./AddBook.css">
+    <link rel="stylesheet" href="./style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>My Online Book Store</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <header>
+        <nav class="HeaderClass">
+            <div class="logo-header">
+                <i class="fas fa-book"></i>
+                <h1>Welcome To My Online Book Store</h1>
+            </div>
+            <ul>
+                <li><a href="./index.html" id="home-button">Home</a></li>
+                <li><a href="./books.html" id="book-button">View Books</a></li>
+                <li><a href="./AddBook.html" id="add-book-button">Add Books</a></li>
+                <li><a href="./EditBook.html">Edit Book</a></li>
+                <li><a href="./ByAuthor.html">By Author</a></li>
+
+
+                <!-- <ul class="dropdown">
+                    <li><a href="./books.html" id="add-book"></a>View Book</li>
+                    <li><a href="./AddBook.html" id="add-book"></a>Add Book</li>
+                    <li><a href="./EditBook.html" id="add-book"></a>Edit Book</li>
+                    <li><a href="./ByAuthor.html" id="add-book"></a>By Author</li>
+
+                </ul> -->
+            
+                
+            </ul>
+        </nav>
+    </header>
+    <section class="book-form">
+        <h2>Add Book</h2>
+        <form id="bookForm">
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input type="text" id="title" name="title" required>
+            </div>
+            <div class="form-group">
+                <label for="author">Author</label>
+                <input type="text" id="author" name="author" required>
+            </div>
+            <div class="form-group">
+                <label for="description">Description</label>
+                <input type="text" id="description" name="description" required>
+            </div>
+            <div class="form-group">
+                <label for="imageUrl">Image Url</label>
+                <input type="text" id="imageUrl" name="imageUrl" required>
+            </div>
+            
+            <button type="submit">Submit</button>
+        </form>
+    </section>
+
+    <script>
+        $(document).ready(function() {
+            $('#bookForm').on('submit', function(event) {
+                event.preventDefault(); // prevent default method of reload page
+
+                // Collect form data
+                const bookData = {
+                    title: $('#title').val(),
+                    author: $('#author').val(),
+                    description: $('#description').val(),
+                    imageUrl: $('#imageUrl').val()
+                };
+
+                // Send POST request
+                $.ajax({
+                    url: 'https://localhost:7046/api/Books',
+                    method: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(bookData),
+                    success: function(response) {
+                        alert('Book added successfully!');
+                      
+                    },
+                    error: function(error) {
+                        console.error('Error adding book:', error);
+                        alert('Failed to add book. Please try again.');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

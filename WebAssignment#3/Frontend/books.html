@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="./bookPage.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>My Online Book Store</title>
+</head>
+<body>
+    <header>
+        <nav class="HeaderClass">
+            <div class="logo-header">
+                <i class="fas fa-book"></i>
+                <h1>Welcome To My Online Book Store</h1>
+            </div>
+            <ul>
+                <li><a href="./index.html" id="home-button">Home</a></li>
+                <li><a href="./books.html" id="book-button">View Books</a></li>
+                <li><a href="./AddBook.html" id="add-book-button">Add Books</a></li>
+                <li><a href="./EditBook.html">Edit Book</a></li>
+                <li><a href="./ByAuthor.html">By Author</a></li>
+
+
+                <!-- <ul class="dropdown">
+                    <li><a href="./books.html" id="add-book"></a>View Book</li>
+                    <li><a href="./AddBook.html" id="add-book"></a>Add Book</li>
+                    <li><a href="./EditBook.html" id="add-book"></a>Edit Book</li>
+                    <li><a href="./ByAuthor.html" id="add-book"></a>By Author</li>
+
+                </ul> -->
+            
+                
+            </ul>
+        </nav>
+    </header>
+    <div class="search-bar">
+        <form action="#" method="GET">
+            <input type="text" placeholder="Search for books..." id="search" name="search">
+            <button type="submit"><i class="fas fa-search"></i></button>
+        </form>
+    </div>
+    <section class="featured-books">
+        
+        <div class="card-container">
+           <!-- cards will be appending in card container as i was doing it in home -->
+            </div>
+            </section>
+            
+    
+    <div class="load-more">
+        <button id="load-more">Load More</button>
+    </div>
+    <footer >
+        <p>© 2024 My Online Bookstore</p>
+
+    </footer>
+    <script src="./script.js"></script>
+</body>
+</html>
